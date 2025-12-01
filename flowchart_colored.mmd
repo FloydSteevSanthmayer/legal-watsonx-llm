@@ -1,0 +1,15 @@
+flowchart LR
+  A["User Inputs Legal Text"]:::primary --> B["Frontend Sends Request (POST /api/analyze)"]:::primary
+  B --> C["FastAPI Endpoint Receives Document"]:::neutral
+  C --> D["Validate Input (Pydantic)"]:::process
+  D --> E["Prepare Prompt for AI Model"]:::process
+  E --> F["WatsonX LLM Processes Request"]:::critical
+  F --> G["AI Generates Legal Analysis"]:::success
+  G --> H["Backend Returns JSON Response"]:::success
+  H --> I["Frontend Displays Final Analysis to User"]:::primary
+
+  classDef primary fill:#DCEBFF,stroke:#234A8F,stroke-width:1px;
+  classDef neutral fill:#F5F5F5,stroke:#555,stroke-width:1px;
+  classDef process fill:#FFF3C4,stroke:#D7A400,stroke-width:1px;
+  classDef critical fill:#FFE1E1,stroke:#C84C4C,stroke-width:1px;
+  classDef success fill:#E6FFE8,stroke:#3A8C45,stroke-width:1px;

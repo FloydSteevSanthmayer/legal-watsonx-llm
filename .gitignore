@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+venv/
+.venv/
+node_modules/
+dist/
+frontend_dist/
+.env.local
+.DS_Store
+*.log
