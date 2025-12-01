@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Legal Document Analyzer Design System */
+
+@layer base {
+  :root {
+    /* Core Colors - Professional Legal Theme */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    /* Legal Blue Primary */
+    --primary: 214 84% 56%;
+    --primary-foreground: 0 0% 100%;
+    --primary-muted: 214 84% 96%;
+
+    /* Professional Secondary */
+    --secondary: 215 16% 97%;
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 215 16% 97%;
+    --muted-foreground: 215 13% 65%;
+
+    --accent: 214 84% 96%;
+    --accent-foreground: 214 84% 56%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 14% 89%;
+    --input: 215 14% 89%;
+    --ring: 214 84% 56%;
+
+    --radius: 0.75rem;
+
+    /* Legal-specific design tokens */
+    --legal-gradient: linear-gradient(135deg, hsl(214 84% 56%), hsl(214 84% 66%));
+    --legal-shadow: 0 4px 20px hsl(214 84% 56% / 0.15);
+    --legal-shadow-sm: 0 2px 8px hsl(214 84% 56% / 0.1);
+    
+    /* Chat specific */
+    --chat-user: 214 84% 56%;
+    --chat-user-foreground: 0 0% 100%;
+    --chat-ai: 215 16% 97%;
+    --chat-ai-foreground: 215 25% 27%;
+
+    /* Sidebar */
+    --sidebar-width: 280px;
+    --sidebar-collapsed: 60px;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode - Professional Legal Theme */
+    --background: 215 25% 8%;
+    --foreground: 0 0% 95%;
+
+    --card: 215 25% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 215 25% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 214 84% 66%;
+    --primary-foreground: 215 25% 8%;
+    --primary-muted: 214 84% 20%;
+
+    --secondary: 215 25% 12%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 215 25% 12%;
+    --muted-foreground: 215 13% 70%;
+
+    --accent: 214 84% 20%;
+    --accent-foreground: 214 84% 66%;
+
+    --destructive: 0 84% 70%;
+    --destructive-foreground: 215 25% 8%;
+
+    --border: 215 25% 15%;
+    --input: 215 25% 15%;
+    --ring: 214 84% 66%;
+
+    /* Dark mode legal tokens */
+    --legal-gradient: linear-gradient(135deg, hsl(214 84% 66%), hsl(214 84% 76%));
+    --legal-shadow: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --legal-shadow-sm: 0 2px 8px hsl(0 0% 0% / 0.2);
+
+    /* Dark chat colors */
+    --chat-user: 214 84% 66%;
+    --chat-user-foreground: 215 25% 8%;
+    --chat-ai: 215 25% 12%;
+    --chat-ai-foreground: 0 0% 95%;
+
+    /* Dark sidebar */
+    --sidebar-background: 215 25% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 214 84% 66%;
+    --sidebar-primary-foreground: 215 25% 8%;
+    --sidebar-accent: 215 25% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 215 25% 15%;
+    --sidebar-ring: 214 84% 66%;
+  }
+}
+
+@layer components {
+  /* Professional animations */
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Legal specific components */
+  .legal-gradient {
+    background: var(--legal-gradient);
+  }
+
+  .legal-shadow {
+    box-shadow: var(--legal-shadow);
+  }
+
+  .legal-shadow-sm {
+    box-shadow: var(--legal-shadow-sm);
+  }
+
+  /* Chat bubbles */
+  .chat-bubble-user {
+    background: hsl(var(--chat-user));
+    color: hsl(var(--chat-user-foreground));
+  }
+
+  .chat-bubble-ai {
+    background: hsl(var(--chat-ai));
+    color: hsl(var(--chat-ai-foreground));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
