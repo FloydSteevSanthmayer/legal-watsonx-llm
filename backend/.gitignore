@@ -1,29 +1,26 @@
-
-# Python artifacts
+# Python cache
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
+*.pyc
+*.pyo
 
-# Virtualenvs
+# Virtual environment
 .venv/
 venv/
+env/
 
-# Models & large files
-*.gguf
-models/
-chroma_storage/
-*.part
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# IDE
-.idea/
-.vscode/
-
-# Secrets
+# Environment files
 .env
-*.env
+.env.*
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
