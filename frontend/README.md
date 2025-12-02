@@ -1,73 +1,78 @@
-# Welcome to your Lovable project
+# Frontend — legal-watsonx-llm
 
-## Project info
+## Overview
+This frontend is a **React + Vite** application designed to provide a clean and intuitive interface for legal document analysis.  
+The UI follows component patterns inspired by **lovable**, ensuring a modern, responsive, and user-friendly experience.
 
-**URL**: https://lovable.dev/projects/5cc610af-d63a-490a-bd74-75bd5a393863
+Its responsibilities include collecting user input, sending it to the backend, and presenting AI-driven insights produced by IBM WatsonX LLM models.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## Key Responsibilities
+- Accept pasted or uploaded legal text  
+- Validate input & provide user feedback  
+- Send API requests to `POST /api/analyze`  
+- Display:
+  - Summary  
+  - Extracted clauses  
+  - Risks  
+  - Obligations  
+- Provide export/copy functionality for analysis results  
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5cc610af-d63a-490a-bd74-75bd5a393863) and start prompting.
+## Getting Started (Development)
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Install dependencies
+```bash
+Start development server
 npm run dev
-```
 
-**Edit a file directly in GitHub**
+Build for production
+npm run build
+npm run preview
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Environment Variables
 
-**Use GitHub Codespaces**
+Create a .env file inside frontend/:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+VITE_API_BASE_URL=http://localhost:8000
+VITE_APP_NAME=Legal WatsonX LLM
 
-## What technologies are used for this project?
 
-This project is built with:
+⚠️ Do not commit .env or any secrets to GitHub.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Recommended Folder Structure
+frontend/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── styles/
+│   └── main.jsx
+├── package.json
+├── vite.config.ts
+└── README.md
 
-## How can I deploy this project?
+API Usage Example
+const response = await fetch(
+  `${import.meta.env.VITE_API_BASE_URL}/api/analyze`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ documentText }),
+  }
+);
 
-Simply open [Lovable](https://lovable.dev/projects/5cc610af-d63a-490a-bd74-75bd5a393863) and click on Share -> Publish.
+Accessibility & UX Good Practices
 
-## Can I connect a custom domain to my Lovable project?
+Keyboard-friendly navigation
 
-Yes, you can!
+High contrast readability
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Clear error messages
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Smooth transitions for results
+cd frontend
+npm install
