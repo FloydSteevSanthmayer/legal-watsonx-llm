@@ -1,114 +1,128 @@
-# legal-watsonx-llm
-
-**Legal Document Analyzer — IBM WatsonX (Llama‑3) Integration**
-
----
+# Backend — legal-watsonx-llm
 
 ## Overview
+The backend is a **FastAPI** service responsible for processing legal documents, generating prompts, and interacting with the **IBM WatsonX LLM (ModelInference API)**.  
+It serves as the core engine of the Legal WatsonX LLM application, providing structured, accurate, and reliable legal insights to the frontend.
 
-**legal-watsonx-llm** is a professional reference implementation for automated legal document analysis powered by IBM WatsonX (Llama‑3 family).  
-This scaffold demonstrates a secure, testable, and production-minded architecture combining a FastAPI backend with a React/Vite frontend (frontend UI implemented using **lovable**). It focuses on delivering clear, auditable outputs: clause extraction, risk identification, and per‑party obligation summaries.
+The backend is designed with:
 
----
-
-## Features
-
-- **LLM-driven analysis:** Uses WatsonX ModelInference to generate concise legal analyses.
-- **Structured output:** Returns summaries, clause lists, identified risks, and obligations.
-- **Large-document handling:** Chunking and progressive summarization to respect token limits.
-- **Secure configuration:** Environment-driven configuration; no secrets in source control.
-- **Developer workflow:** Includes pytest scaffold, CI templates, and pre-commit hooks suggestions.
-- **Container-ready:** Multi-stage Dockerfile for reproducible builds.
+- Clean architecture  
+- Strong typing using **Pydantic**  
+- Production-ready API patterns  
+- Secure CORS configuration  
+- Robust error handling  
+- Docker support  
 
 ---
 
-## Quick Start (Developer)
+## Key Responsibilities
+- Receive legal document text from the frontend  
+- Validate and sanitize input  
+- Construct high-quality prompts for WatsonX LLM  
+- Send LLM requests via IBM ModelInference API  
+- Generate:
+  - Legal summaries  
+  - Extracted clauses  
+  - Risk assessment  
+  - Obligations per party  
+- Return clean, structured JSON responses  
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+ (frontend)
-- Docker (optional)
-- IBM WatsonX credentials: `WATSONX_URL`, `WATSONX_API_KEY`, `WATSONX_PROJECT_ID`
+---
 
-### Backend (local)
+## Tech Stack
+- **FastAPI**  
+- **Python 3.11+**  
+- **IBM WatsonX ModelInference (Llama 3.x)**  
+- **Uvicorn**  
+- **Pydantic**  
+- **Docker ready**  
+
+---
+
+## Installation & Setup
+
+### 1. Create a virtual environment
 ```bash
-# from project root
 cd backend
 python -m venv .venv
-# macOS / Linux
+2. Activate environment
+Windows
+
+powershell
+Copy code
+.\.venv\Scripts\activate
+macOS / Linux
+
+bash
+Copy code
 source .venv/bin/activate
-# Windows (PowerShell)
-.venv\Scripts\activate
-pip install -r ../requirements.txt
+3. Install dependencies
+bash
+Copy code
+pip install -r requirements.txt
+Environment Configuration
+Create a .env file:
 
-# copy env example and add credentials
-cp ../.env.example .env
+ini
+Copy code
+WATSONX_URL=https://us-south.ml.cloud.ibm.com
+WATSONX_API_KEY=your_api_key
+WATSONX_PROJECT_ID=your_project_id
+FRONTEND_ORIGIN=http://localhost:5173
+⚠️ Do NOT commit .env to GitHub.
 
-# run dev server
+Running the Server
+bash
+Copy code
 uvicorn app:app --reload --host 0.0.0.0 --port 8000
-```
+API Docs available at:
 
-### Frontend (local)
-```bash
-cd frontend
-npm install
-npm run dev
-```
+bash
+Copy code
+http://localhost:8000/docs
+API — POST /api/analyze
+Request example
+json
+Copy code
+{
+  "documentText": "This Agreement is made on..."
+}
+Response example
+json
+Copy code
+{
+  "analysis": "LLM-generated legal analysis..."
+}
+Error Responses
+Code	Description
+400	Invalid input
+413	Input too large
+429	Rate limit reached
+500	WatsonX or server error
 
-### Example API Request
-```bash
-curl -X POST "http://localhost:8000/api/analyze" \
-  -H "Content-Type: application/json" \
-  -d '{ "documentText": "Insert contract or legal text here" }'
-```
+Deployment
+Docker (recommended)
+bash
+Copy code
+docker build -t legal-watsonx-backend .
+docker run -p 8000:8000 legal-watsonx-backend
+Production checklist
+Use Gunicorn/Uvicorn workers
 
----
+Harden CORS rules
 
-## Architecture (Concise)
+Use HTTPS for all requests
 
-1. **Frontend (React + lovable)** — collects text input or files; calls backend API.
-2. **Backend (FastAPI)** — validates input (Pydantic), preprocesses text, performs optional chunking, constructs LLM prompts, calls WatsonX ModelInference, postprocesses results, and returns structured JSON.
-3. **WatsonX (LLM)** — generates the legal analysis based on the prompt.
-4. **Infra & Ops** — `.env` for credentials (or secret manager), CORS config, logging, authentication, rate-limiting, and CI.
+Store secrets in a secrets manager
 
----
+Enable rate limiting
 
-## Recommended File Structure (high-level)
-```
-/ (repo root)
-├─ backend/
-│  ├─ app.py
-│  ├─ services/
-│  │  └─ watsonx_client.py
-│  └─ tests/
-├─ frontend/
-│  ├─ package.json
-│  └─ src/
-├─ flowchart_colored.mmd
-├─ flowchart_colored.png
-├─ Dockerfile
-├─ requirements.txt
-├─ .env.example
-├─ .gitignore
-├─ .github/
-└─ README.md
-```
+Security Notes
+Never commit .env
 
----
+Sanitize all inputs
 
-## Security & Best Practices
+Do not expose internal stack traces
 
-- **Never commit secrets.** Use `.env` locally and a secrets manager in production.
-- **Do not add `node_modules/` to source control.** Use `.gitignore`.
-- **Add authentication & rate-limiting** before exposing endpoints publicly.
-- **Log responsibly:** avoid persisting PII or secrets in logs.
-- **Testing:** unit test prompt construction and parsing; integration test with mocked WatsonX.
+Always validate API responses
 
----
-
-## Contributing & License
-
-- **Author / Maintainer:** Floyd Steev Santhmayer  
-- **License:** MIT
-
-Contributions are welcome. Please follow conventional commits, add tests for new behavior, and run pre-commit hooks locally.
