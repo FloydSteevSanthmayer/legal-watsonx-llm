@@ -1,29 +1,23 @@
+# Dependencies
+node_modules/
 
-# Python artifacts
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Build output
 dist/
 build/
+.vite/
 
-# Virtualenvs
-.venv/
-venv/
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Models & large files
-*.gguf
-models/
-chroma_storage/
-*.part
+# Environment files
+.env
+.env.*.local
 
-# OS files
+# Editor / OS files
 .DS_Store
 Thumbs.db
-
-# IDE
-.idea/
+*.log
 .vscode/
-
-# Secrets
-.env
-*.env
+.idea/
